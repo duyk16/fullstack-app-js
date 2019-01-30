@@ -18,8 +18,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
 // Routes
-app.use('/users', userRoutes)
-app.use('/posts', postRoutes)
+app.use('/api/v1/users', userRoutes)
+app.use('/api/v1/posts', postRoutes)
 
 // Handler 404 Request
 app.use((req, res) => {
