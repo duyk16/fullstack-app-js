@@ -1,6 +1,6 @@
 const crypto = require('crypto')
 
-const UserModel = require('../models/users.model')
+const UserModel = require('../models/user.model')
 
 exports.hasAuthFields = (req, res, next) => {
   if (

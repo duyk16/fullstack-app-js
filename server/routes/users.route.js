@@ -6,6 +6,7 @@ const authController = require('../controllers/auth.controller')
 
 const verifyUserMiddleware = require('../middlewares/verify.user.middleware')
 const authUserMiddleware = require('../middlewares/auth.user.middlerware')
+const uploadMiddleware = require('../middlewares/upload.middlerware')
 
 route.post('/', [
   verifyUserMiddleware.hasRegiterFields,
@@ -28,6 +29,14 @@ route.delete('/:id', [
   authUserMiddleware.validJWTNeeded,
   authUserMiddleware.minLevelRequired(3), // 3 = Admin
   userController.removeById
+])
+
+route.post('/upload', [
+    // authUserMiddleware.validJWTNeeded,
+    // authUserMiddleware.minLevelRequired(1),
+    // authUserMiddleware.sameId,
+    uploadMiddleware.upload('avatar'),
+    userController.uploadAvatar
 ])
 
 route.post('/auth', [

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const crypto = require('crypto')
 
-const UserModel = require('../models/users.model')
+const UserModel = require('../models/user.model')
 
 exports.createUser = (req, res) => {
   let {
@@ -97,4 +97,10 @@ exports.removeById = (req, res) => {
       error: 'Delete fail',
       error
     }))
+}
+
+exports.uploadAvatar = (req, res) => {
+  console.log('controller')
+  console.log(req.file)
+  res.send(req.file)
 }
