@@ -31,15 +31,15 @@ route.delete('/:id', [
   userController.removeById
 ])
 
-route.post('/upload', [
-    // authUserMiddleware.validJWTNeeded,
-    // authUserMiddleware.minLevelRequired(1),
-    // authUserMiddleware.sameId,
-    uploadMiddleware.upload('avatar'),
-    userController.uploadAvatar
+route.post('/upload/avatar/:id', [
+  authUserMiddleware.validJWTNeeded,
+  authUserMiddleware.minLevelRequired(1),
+  authUserMiddleware.sameId,
+  uploadMiddleware.uploadAvatar,
+  userController.uploadAvatar
 ])
 
-route.post('/auth', [
+route.post('/login', [
   verifyUserMiddleware.hasAuthFields,
   verifyUserMiddleware.isPasswordAndUserMatch,
   authController.login

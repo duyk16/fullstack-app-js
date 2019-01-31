@@ -100,7 +100,6 @@ exports.removeById = (req, res) => {
 }
 
 exports.uploadAvatar = (req, res) => {
-  console.log('controller')
-  console.log(req.file)
+  // console.log(req.file)
   res.send(req.file)
 }

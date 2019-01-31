@@ -2,6 +2,7 @@ const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
 
 exports.login = (req, res) => {
+  console.log(req.body)
   try {
     let refreshId = req.body.userId + process.env.JWT_SECRET
     let salt = crypto.randomBytes(16).toString('base64')
@@ -19,7 +20,7 @@ exports.login = (req, res) => {
 
   } catch (e) {
     return res.status(500).send({
-      errors: 'This error'
+      errors: 'Unknow error'
     })
   }
 }
