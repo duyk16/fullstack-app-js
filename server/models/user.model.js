@@ -1,11 +1,14 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
-  firstName: {type: String, trim: true},
-  lastName: {type: String, trim: true},
-  email: {type: String, trim: true},
-  password: String,
-  avatar: String,
+  firstName: {type: String, trim: true, required: true},
+  lastName: {type: String, trim: true, required: true},
+  email: {type: String, trim: true, required: true},
+  password: {type: String, required: true},
+  avatar: {
+    path: String,
+    fileName: String,
+  },
   permissionLevel: {
     type: Number,
     default: 1

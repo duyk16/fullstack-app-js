@@ -38,7 +38,7 @@ exports.getListUsers = (req, res) => {
 }
 exports.getById = (req, res) => {
   UserModel.findById({
-      _id: req.params.id
+      _id: req.params.userId
     })
     .then(data => {
       data.__v = undefined
@@ -55,7 +55,7 @@ exports.patchById = async (req, res) => {
     req.body.password = salt + '$' + hash
   }
 
-  let user = await UserModel.findById(req.params.id)
+  let user = await UserModel.findById(req.params.userId)
   if (!user) return res.status(400).send({
     error: 'ID not found'
   })
@@ -77,7 +77,7 @@ exports.patchById = async (req, res) => {
 }
 exports.removeById = (req, res) => {
   UserModel.findByIdAndRemove({
-      _id: req.params.id
+      _id: req.params.userId
     })
     .then((data) => res.status(204).send({
       status: 'Delete success',
@@ -90,12 +90,12 @@ exports.removeById = (req, res) => {
 }
 
 exports.updateAvatar = (req, res) => {
-  UserModel.updateOne({_id: req.params.id}, {avatar: req.file.path})
+  UserModel.updateOne({_id: req.params.userId}, {avatar: req.file.path})
     .then(() => {
       return res.status(201).send({
         status: 'success',
         data: {
-          userId: req.params.id,
+          userId: req.params.userId,
           imageType: req.file.mimetype,
           path: req.file.path
         }

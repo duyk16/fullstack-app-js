@@ -14,7 +14,7 @@ exports.uploadAvatar = (req, res, next) => {
         return res.status(400).send({ error: 'Image type node valid' })
       }
       file.extendtion = file.originalname.match(/\.[0-9a-z]+$/i)[0]
-      cb(null, req.params.id + '-' + Date.now() + file.extendtion)
+      cb(null, req.params.userId + '-' + Date.now() + file.extendtion)
     }
   })
   

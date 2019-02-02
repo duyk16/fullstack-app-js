@@ -13,25 +13,24 @@ route.post('/', [
   verifyUserMiddleware.hasUserExist,
   userController.createUser
 ])
-route.get('/:id', [
+route.get('/:userId', [
   authUserMiddleware.validJWTNeeded,
   authUserMiddleware.minLevelRequired(1), // 1 = User
   authUserMiddleware.sameId,
   userController.getById
 ])
-route.patch('/:id', [
+route.patch('/:userId', [
   authUserMiddleware.validJWTNeeded,
   authUserMiddleware.minLevelRequired(1),
   authUserMiddleware.sameId,
   userController.patchById,
 ])
-route.delete('/:id', [
+route.delete('/:userId', [
   authUserMiddleware.validJWTNeeded,
   authUserMiddleware.minLevelRequired(3), // 3 = Admin
   userController.removeById
 ])
-
-route.post('/:id/avatar', [
+route.post('/:userId/upload/avatar', [
   authUserMiddleware.validJWTNeeded,
   authUserMiddleware.minLevelRequired(1),
   authUserMiddleware.sameId,
@@ -39,7 +38,6 @@ route.post('/:id/avatar', [
   uploadMiddleware.resizeAvatar, // resize to 1024 x 1024
   userController.updateAvatar
 ])
-
 route.post('/login', [
   verifyUserMiddleware.hasAuthFields,
   verifyUserMiddleware.isPasswordAndUserMatch,

@@ -1,30 +1,25 @@
 const mongoose = require('mongoose')
 
 const postSchema = new mongoose.Schema({
-  title: String,
-  content: String,
-  postedBy: {
+  title: {type: String, required: true},
+  content: {type: String, required: true},
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Users'
+    ref: 'Users',
+    required: true
   },
-  image: String,
-  comments: [
-    {
-      content: String,
-      date: {
-        type: Date,
-        default: Date.now
-      },
-      postedBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users'
-      }
-    }
-  ],
-  date: {
-    type: Date,
-    default: Date.now
-  }
+  comments: [{
+    type: String,
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Users'
+    },
+    createdAt: {type: Date, default: Date.now},
+    updatedAt: {type: Date, default: Date.now}
+  }],
+  image: {type: String, required: true},
+  createdAt: {type: Date, default: Date.now},
+  updatedAt: {type: Date, default: Date.now}
 })
 
 module.exports = mongoose.model('Posts', postSchema)
