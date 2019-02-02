@@ -42,15 +42,16 @@ exports.isPasswordAndUserMatch = async (req, res, next) => {
   }
 }
 exports.hasRegiterFields = (req, res, next) => {
+  const regexEmail = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/ig
   if (
     req.body.firstName &&
     req.body.lastName &&
-    req.body.email &&
-    req.body.password
+    regexEmail.test(req.body.email) &&
+    req.body.password > 5
   ) return next()
 
   return res.status(400).send({
-    error: "All field are required"
+    error: "Some fields are not valid"
   })
 }
 exports.hasUserExist = async (req, res, next) => {

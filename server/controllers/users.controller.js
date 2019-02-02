@@ -4,12 +4,7 @@ const crypto = require('crypto')
 const UserModel = require('../models/user.model')
 
 exports.createUser = (req, res) => {
-  let {
-    firstName,
-    lastName,
-    email,
-    password
-  } = req.body
+  let {firstName, lastName, email, password} = req.body
 
   // Create salt + hash
   let salt = crypto.randomBytes(16).toString('base64');
@@ -17,12 +12,7 @@ exports.createUser = (req, res) => {
   password = salt + "$" + hash;
 
   // Create new user
-  let user = new UserModel({
-    firstName,
-    lastName,
-    email,
-    password
-  })
+  let user = new UserModel({firstName, lastName, email, password})
   user.save()
     .then(data => {
       return res.status(201).send({

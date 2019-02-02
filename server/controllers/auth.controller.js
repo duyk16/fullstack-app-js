@@ -10,10 +10,10 @@ exports.login = (req, res) => {
     req.body.refreshKey = salt
 
     let token = jwt.sign(req.body, process.env.JWT_SECRET)
-    let b = new Buffer(hash);
+    let b = new Buffer.from(hash);
     let refreshToken = b.toString('base64')
-
     return res.status(201).send({
+      userId: req.body.id,
       accessToken: token,
       refreshToken: refreshToken
     })
