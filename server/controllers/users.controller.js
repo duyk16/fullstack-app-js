@@ -99,7 +99,17 @@ exports.removeById = (req, res) => {
     }))
 }
 
-exports.uploadAvatar = (req, res) => {
-  // console.log(req.file)
-  res.send(req.file)
+exports.updateAvatar = (req, res) => {
+  UserModel.updateOne({_id: req.params.id}, {avatar: req.file.path})
+    .then(() => {
+      return res.status(201).send({
+        status: 'success',
+        data: {
+          userId: req.params.id,
+          imageType: req.file.mimetype,
+          path: req.file.path
+        }
+      })
+    })
+    .catch(err => res.status(500).send({error: 'Write data fail'}))
 }

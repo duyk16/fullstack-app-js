@@ -31,12 +31,13 @@ route.delete('/:id', [
   userController.removeById
 ])
 
-route.post('/upload/avatar/:id', [
+route.post('/:id/avatar', [
   authUserMiddleware.validJWTNeeded,
   authUserMiddleware.minLevelRequired(1),
   authUserMiddleware.sameId,
   uploadMiddleware.uploadAvatar,
-  userController.uploadAvatar
+  uploadMiddleware.resizeAvatar, // resize to 1024 x 1024
+  userController.updateAvatar
 ])
 
 route.post('/login', [
