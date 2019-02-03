@@ -19,7 +19,7 @@ exports.createUser = (req, res) => {
         status: "success",
         email: data.email,
         firstName: data.firstName,
-        id: data._id
+        userId: data._id
       })
     })
     .catch(e => res.status(500).send())

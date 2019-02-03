@@ -3,12 +3,13 @@ const crypto = require('crypto')
 const UserModel = require('../models/user.model')
 
 exports.hasAuthFields = (req, res, next) => {
+  console.log(req.body)
   if (
     req.body.email &&
     req.body.password
-  ) {
-    return next()
-  } else return res.status(400).send({
+  ) return next()
+  
+  else return res.status(400).send({
     errors: 'Email and password are required'
   })
 }

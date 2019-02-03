@@ -24,7 +24,7 @@ exports.minLevelRequired = (levelRequired) => {
   }
 }
 exports.sameId = (req, res, next) => {
-  if (req.jwt.id == req.params.userId) return next()
+  if (req.jwt.userId == req.params.userId) return next()
   return res.status(403).send({
     error: 'Permission denied'
   })

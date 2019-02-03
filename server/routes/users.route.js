@@ -35,7 +35,7 @@ route.post('/:userId/upload/avatar', [
   authUserMiddleware.minLevelRequired(1),
   authUserMiddleware.sameId,
   uploadMiddleware.uploadAvatar,
-  uploadMiddleware.resizeAvatar, // resize to 1024 x 1024
+  uploadMiddleware.resizeAvatar,  // resize to 512 x 512
   userController.updateAvatar
 ])
 route.post('/login', [
