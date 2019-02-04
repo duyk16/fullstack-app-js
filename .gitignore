@@ -56,3 +56,5 @@ buck-out/
 *.jsbundle
 
 */nodemon.json
+public/uploads/avatar
+public/uploads/post
