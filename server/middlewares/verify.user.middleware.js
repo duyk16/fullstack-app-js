@@ -3,7 +3,6 @@ const crypto = require('crypto')
 const UserModel = require('../models/user.model')
 
 exports.hasAuthFields = (req, res, next) => {
-  console.log(req.body)
   if (
     req.body.email &&
     req.body.password

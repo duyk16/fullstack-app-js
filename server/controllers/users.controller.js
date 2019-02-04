@@ -29,22 +29,27 @@ exports.getListUsers = (req, res) => {
   let page = 0
   if (req.query.page) {
     req.query.page = parseInt(req.query.page);
-    page = Number.isInteger(req.query.page) ? req.query.page : 0;
+    page = Number.isInteger(req.query.page) ? req.query.page - 1 : 0;
   }
 
-  UserModel.find().limit(limit).skip(limit * page)
+  UserModel.find()
+    .limit(limit)
+    .skip(limit * page)
+    .select('-__v -password')
     .then(result => res.status(200).send(result))
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err)
+      return res.status(400).send({error: 'Not found'})
+    })
 }
 exports.getById = (req, res) => {
-  UserModel.findById({
-      _id: req.params.userId
-    })
-    .then(data => {
-      data.__v = undefined
-      data.password = undefined
-      res.status(200).send(data)
-    }).catch(() => res.status(500).send('Try again after few moment'))
+  UserModel.findById({_id: req.params.userId})
+    .select('-__v -password')
+    .then(data => res.status(200).send({
+      status: 'success',
+      data
+    }))
+    .catch(() => res.status(500).send('Not found'))
 }
 exports.patchById = async (req, res) => {
   if (req.body.password) {
@@ -85,7 +90,6 @@ exports.removeById = (req, res) => {
     }))
     .catch((error) => res.status(400).send({
       error: 'Delete fail',
-      error
     }))
 }
 

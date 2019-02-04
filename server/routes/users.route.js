@@ -13,10 +13,14 @@ route.post('/', [
   verifyUserMiddleware.hasUserExist,
   userController.createUser
 ])
+route.get('/', [
+  authUserMiddleware.validJWTNeeded,
+  authUserMiddleware.minLevelRequired(1), // 1 = User
+  userController.getListUsers
+])
 route.get('/:userId', [
   authUserMiddleware.validJWTNeeded,
   authUserMiddleware.minLevelRequired(1), // 1 = User
-  authUserMiddleware.sameId,
   userController.getById
 ])
 route.patch('/:userId', [
