@@ -26,13 +26,16 @@ export default class Login extends Component {
 
   render() {
     return (
-      <View style={Styles.ContainerCenter}>
+      <View style={{...Styles.ContainerCenter, height: '100%'}}>
         <KeyboardAvoidingView 
-          style={Styles.ContainerCenter} 
+          style={[Styles.ContainerCenter, {height: '100%'}]} 
           behavior="padding" 
           enabled
         >
-        <ScrollView style={{width: '100%'}}>
+        <ScrollView style={{width: '100%', height: '100%', paddingBottom: 30}}
+          centerContent={true}
+          showsVerticalScrollIndicator={false}
+        > 
           <View style={Styles.ContainerCenter}>
           <View>
             <Image 

@@ -12,6 +12,10 @@ export default class LoginForm extends Component {
           <TextInput 
             style={styles.inputControl}
             placeholder='Email'
+            autoFocus={true}
+            autoCapitalize='none'
+            textContentType='emailAddress'
+            keyboardType='email-address'
             placeholderTextColor='#607688'
           />
         </View>
@@ -19,6 +23,9 @@ export default class LoginForm extends Component {
           <TextInput 
             style={styles.inputControl}
             placeholder='Password'
+            autoCapitalize='none'
+            textContentType='password'
+            secureTextEntry={true}
             placeholderTextColor='#607688'
           />
         </View>

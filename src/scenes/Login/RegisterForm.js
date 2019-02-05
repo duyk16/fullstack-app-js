@@ -12,13 +12,30 @@ export default class RegisterForm extends Component {
           <TextInput 
             style={styles.inputControl}
             placeholder='Email'
+            autoFocus={true}
+            autoCapitalize='none'
+            textContentType='emailAddress'
+            keyboardType='email-address'
             placeholderTextColor='#607688'
           />
         </View>
         <View style={styles.formControl}>
           <TextInput 
             style={styles.inputControl}
-            placeholder='Password'
+            placeholder='Your password'
+            autoCapitalize='none'
+            textContentType='password'
+            secureTextEntry={true}
+            placeholderTextColor='#607688'
+          />
+        </View>
+        <View style={styles.formControl}>
+          <TextInput 
+            style={styles.inputControl}
+            placeholder='Confirm password'
+            autoCapitalize='none'
+            textContentType='password'
+            secureTextEntry={true}
             placeholderTextColor='#607688'
           />
         </View>
@@ -51,7 +68,7 @@ export default class RegisterForm extends Component {
             </Text>
           </LinearGradient>
         </TouchableOpacity>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', marginBottom: 30}}>
           <Text style={{fontSize: 16, color: '#607688'}}>
             Have account?
           </Text>
