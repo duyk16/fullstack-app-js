@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image } from 'react-native'
+import {
+  Text, View, StyleSheet, Image, TouchableOpacity
+} from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import * as Styles from '../../config/Styles'
@@ -17,7 +19,7 @@ export default class Post extends Component {
   
   render() {
     return (
-      <View style={{backgroundColor: '#fff'}}>
+      <View style={{backgroundColor: '#fff', marginBottom: 10}}>
         <View style={Styles.HorizontalView} >
           <View style={styles.userAvartar} >
             <View style={styles.avatarWrap} >
@@ -57,11 +59,15 @@ export default class Post extends Component {
             </Text>
           </View>
           <View style={styles.postRight} >
-            <FontAwesome 
-              name="chevron-right"
-              color="#dedede"
-              size={25}
-            />
+            <TouchableOpacity
+              activeOpacity={0.7}
+            >
+              <FontAwesome 
+                name="chevron-right"
+                color="#dedede"
+                size={28}
+              />
+            </TouchableOpacity>
           </View>
         </View>
       </View>
