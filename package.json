@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "16.6.3",
     "react-native": "0.58.3",
     "react-native-gesture-handler": "^1.0.15",

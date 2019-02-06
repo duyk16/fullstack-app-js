@@ -27,7 +27,7 @@ const AppNavigator = createStackNavigator(
         fontSize: 20,
       },
       headerStyle: {
-        height: 55
+        height: 60
       }
     }
   }

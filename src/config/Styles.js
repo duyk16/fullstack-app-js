@@ -1,7 +1,8 @@
 export const Color = {
   gray1: '#607688',
   gray2: '#444',
-  orange: '#dd4e4b'
+  orange: '#dd4e4b',
+  blue: '#3c4f5e'
 }
 
 export const TextSmall = {
@@ -25,8 +26,11 @@ export const TextLink = {
 }
 
 export const ContainerCenter = {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+  flex: 1,
+  width: '100%',
+  justifyContent: 'center',
+  alignItems: 'center',
+}
+export const HorizontalView = {
+  flexDirection: 'row'
 }
