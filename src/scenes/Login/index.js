@@ -26,7 +26,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <View style={{...Styles.ContainerCenter, height: '100%'}}>
+      <View style={{...Styles.ContainerCenter, height: '100%', paddingTop: 20}}>
         <KeyboardAvoidingView 
           style={[Styles.ContainerCenter, {height: '100%'}]} 
           behavior="padding" 

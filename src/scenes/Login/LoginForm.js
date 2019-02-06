@@ -34,7 +34,7 @@ export default class LoginForm extends Component {
           activeOpacity={0.7}
         >
           <LinearGradient 
-            colors={['#dd4e4b', '#eec29e']} 
+            colors={['#dd4e4b', '#eec29e']}
             start={{ x: 0, y: 1 }} 
             end={{ x: 1, y: 0 }}
             style={styles.submitControl}

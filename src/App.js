@@ -1,32 +1,28 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import Login from './scenes/Login';
+import Routes from './Routes'
 
 export default class App extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
       user: {
-        isLoggedIn: false
+        isLoggedIn: true
       }
     }
   }
   
   render() {
-    if (!this.state.user.isLoggedIn) {
-      return (
-        <View style={styles.container}>
+    return (
+      <View style={styles.container}>
+        {this.state.user.isLoggedIn ? 
+          <Routes /> : 
           <Login />
-        </View>
-      )
-    } else {
-      return (
-        <View style={styles.container}>
-          <Text style={styles.welcome}>Welcome to React Native Home!</Text>
-        </View>
-      )
-    }
+        }
+      </View>
+    )
   }
 }
 
@@ -34,6 +30,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 20,
   },
 });
