@@ -21,30 +21,30 @@ export default class Post extends Component {
     return (
       <View style={{backgroundColor: '#fff', marginBottom: 10}}>
         <View style={Styles.HorizontalView} >
-          <View style={styles.userAvartar} >
-            <View style={styles.avatarWrap} >
+          <View style={Styles.userAvartar} >
+            <View style={Styles.avatarWrap} >
               <Image 
-                style={styles.avatarImage}
+                style={Styles.avatarImage}
                 source={{uri: 'http://localhost:3000/uploads/avatar/5c571a02ae684c55683d5347-1549455728807.jpg'}}
               />
             </View>
           </View>
-          <View style={styles.userInfo} >
+          <View style={Styles.userInfo} >
             <View>
-              <Text style={styles.userNameText} >Duy Nguyen</Text>
+              <Text style={Styles.userNameText} >Duy Nguyen</Text>
             </View>
             <View>
-              <Text style={styles.userInfoText} >admin4@gmail.com</Text>
+              <Text style={Styles.userInfoText} >admin4@gmail.com</Text>
             </View>
           </View>
-          <View style={styles.postInfo} >
+          <View style={Styles.postInfo} >
             <Text style={Styles.TextNormal} >3 minutes ago</Text>
           </View>
         </View>
 
         <View>
           <Image
-            style={styles.postImage}
+            style={Styles.postImage}
             source={{uri: 'http://localhost:3000/uploads/post/5c5afc87b3376247f16ed6ea-1549466759948.jpeg'}}
           />
         </View>
@@ -52,15 +52,16 @@ export default class Post extends Component {
         <View style={[Styles.HorizontalView, styles.postBox]} >
           <View style={styles.postLeft} >
             <Text style={[Styles.TextLarge, styles.textTitle]} >
-              {this.state.post.title}
+              {this.props.data.title}
             </Text>
             <Text style={[Styles.TextNormal, styles.textContent]} >
-              {this.state.post.content}
+              {this.props.data.content}
             </Text>
           </View>
           <View style={styles.postRight} >
             <TouchableOpacity
               activeOpacity={0.7}
+              onPress={() => this.props.getDetailPost(this.props.index)}
             >
               <FontAwesome 
                 name="chevron-right"
@@ -75,48 +76,6 @@ export default class Post extends Component {
   }
 }
 const styles = StyleSheet.create({
-  userAvartar: {
-    flex: 18,
-    height: 70,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  avatarWrap: {
-    shadowColor: Styles.Color.gray2,
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-  },
-  avatarImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    borderColor: '#eee',
-    borderWidth: 1,
-  },
-  userInfo: {
-    flex: 55,
-    height: 70,
-    justifyContent: 'center',
-    paddingHorizontal: 5,
-  },
-  userNameText: {
-    ...Styles.TextLarge,
-    color: Styles.Color.blue
-  },
-  userInfoText: {
-    ...Styles.TextSmall,
-    color: Styles.Color.orange
-  },
-  postInfo: {
-    flex: 27,
-    height: 70,
-    justifyContent: 'center',
-  },
-  postImage: {
-    width: '100%',
-    height: 200,
-  },
   postBox: {
     paddingHorizontal: 5,
     paddingBottom: 5,

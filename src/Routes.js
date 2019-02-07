@@ -4,10 +4,12 @@ import { createStackNavigator, createAppContainer } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
 
 import Home from './scenes/Home'
+import DetailPost from './scenes/DetailPost'
 
 const AppNavigator = createStackNavigator(
   {
-    Home: Home
+    Home,
+    DetailPost
   },
   {
     defaultNavigationOptions: {
