@@ -1,14 +1,26 @@
 import React, { Component } from 'react'
-import { Text, View, Image, StyleSheet, ScrollView } from 'react-native'
+import { 
+  Text, View, Image, StyleSheet, ScrollView, TouchableOpacity
+} from 'react-native'
+import Entypo from 'react-native-vector-icons/Entypo'
 
 import * as Styles from '../../config/Styles'
 
 export default class index extends Component {
-  static navigationOptions = {
-    title: 'Post Detail'
-  }
+  static navigationOptions = ({navigation}) => ({
+    title: navigation.getParam('data').title,
+    headerLeft: (
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={()=>{navigation.goBack()}}
+        style={{marginHorizontal: 5}}
+      >
+        <Entypo color='#fff' size={35} name='chevron-left' />
+      </TouchableOpacity>
+    )
+  })
   render() {
-    const data = this.props.navigation.getParam('data', 'data')
+    const data = this.props.navigation.getParam('data')
     return (
       <View style={{paddingHorizontal: 10}}>
         <ScrollView style={{height: '100%'}}>

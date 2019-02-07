@@ -5,11 +5,13 @@ import LinearGradient from 'react-native-linear-gradient'
 
 import Home from './scenes/Home'
 import DetailPost from './scenes/DetailPost'
+import Settings from './scenes/Settings'
 
 const AppNavigator = createStackNavigator(
   {
     Home,
-    DetailPost
+    DetailPost,
+    Settings
   },
   {
     defaultNavigationOptions: {

@@ -16,7 +16,10 @@ export default class Post extends Component {
       }
     }
   }
-  
+  static navigationOptions = {
+    
+  }
+
   render() {
     return (
       <View style={{backgroundColor: '#fff', marginBottom: 10}}>
