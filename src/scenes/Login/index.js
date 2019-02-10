@@ -18,7 +18,7 @@ export default class Login extends Component {
     }
 
     this.changeForm = this.changeForm.bind(this)
-    this.loading = this.loading.bind(this)
+    this._loading = this._loading.bind(this)
   }
   
   changeForm() {
@@ -31,7 +31,7 @@ export default class Login extends Component {
 
   }
 
-  loading() {
+  _loading() {
     this.setState({
       ...this.state,
       isLoading: !this.state.isLoading
@@ -69,10 +69,10 @@ export default class Login extends Component {
           {!this.state.isRegister ? 
             <LoginForm 
               changeForm={this.changeForm} 
-              loading={this.loading} /> : 
+              loading={this._loading} /> : 
             <RegisterForm 
               changeForm={this.changeForm} 
-              loading={this.loading} />
+              loading={this._loading} />
           }
           </View>
         </ScrollView>

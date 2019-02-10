@@ -7,7 +7,6 @@ export default class Loader extends Component {
   }
   
   render() {
-    console.log(this.props);
     return (
       <Modal
         visible={this.props.isLoading}

@@ -9,7 +9,7 @@ exports.hasAuthFields = (req, res, next) => {
   ) return next()
   
   else return res.status(400).send({
-    errors: 'Email and password are required'
+    error: 'Email and password are required'
   })
 }
 exports.isPasswordAndUserMatch = async (req, res, next) => {

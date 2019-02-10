@@ -18,7 +18,7 @@ export default class LoginForm extends Component {
             textContentType='emailAddress'
             keyboardType='email-address'
             placeholderTextColor='#607688'
-            onSubmitEditing={() => { this.secondTextInput.focus(); }}
+            onSubmitEditing={() => { this.secondTextInput.focus() }}
           />
         </View>
         <View style={Styles.formControl}>
@@ -29,9 +29,8 @@ export default class LoginForm extends Component {
             textContentType='password'
             secureTextEntry={true}
             placeholderTextColor='#607688'
-            ref={(input) => { this.secondTextInput = input; }}
+            ref={(input) => { this.secondTextInput = input }}
             onSubmitEditing={() => alert('Submit')}
-
           />
         </View>
         <TouchableOpacity 
