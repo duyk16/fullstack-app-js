@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { 
+  Text, View, TextInput, TouchableOpacity 
+} from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import * as Styles from '../../config/Styles'
@@ -7,39 +9,43 @@ import * as Styles from '../../config/Styles'
 export default class LoginForm extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.formControl}>
+      <View style={Styles.ContainerCenter}>
+        <View style={Styles.formControl}>
           <TextInput 
-            style={styles.inputControl}
+            style={Styles.inputControl}
             placeholder='Email'
             autoFocus={true}
-            autoCapitalize='none'
             textContentType='emailAddress'
             keyboardType='email-address'
             placeholderTextColor='#607688'
+            onSubmitEditing={() => { this.secondTextInput.focus(); }}
           />
         </View>
-        <View style={styles.formControl}>
+        <View style={Styles.formControl}>
           <TextInput 
-            style={styles.inputControl}
+            style={Styles.inputControl}
             placeholder='Password'
             autoCapitalize='none'
             textContentType='password'
             secureTextEntry={true}
             placeholderTextColor='#607688'
+            ref={(input) => { this.secondTextInput = input; }}
+            onSubmitEditing={() => alert('Submit')}
+
           />
         </View>
         <TouchableOpacity 
-          style={styles.submitFormControl}
+          style={Styles.submitFormControl}
           activeOpacity={0.7}
+          onPress={() => alert('Submit data')}
         >
           <LinearGradient 
             colors={['#dd4e4b', '#eec29e']}
             start={{ x: 0, y: 1 }} 
             end={{ x: 1, y: 0 }}
-            style={styles.submitControl}
+            style={Styles.submitControl}
           >
-            <Text style={styles.textSubmit}>
+            <Text style={Styles.textSubmit}>
               Sign in
             </Text>
           </LinearGradient>
@@ -59,39 +65,3 @@ export default class LoginForm extends Component {
     )
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  formControl: {
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#dbdfe2',
-    padding: 20,
-    marginVertical: 5,
-    width: '75%',
-    backgroundColor: '#fff',
-  },
-  inputControl: {
-    fontSize: 18,
-    color: '#4d606f',
-    fontWeight: '200',
-  },
-  submitFormControl: {
-    marginVertical: 10,
-    width: '75%',
-  },
-  submitControl: {
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  textSubmit: {
-    fontSize: 18,
-    color: '#fff',
-    fontWeight: '500',
-  }
-})

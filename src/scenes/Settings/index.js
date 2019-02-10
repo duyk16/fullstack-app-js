@@ -56,11 +56,6 @@ export default class index extends Component {
             </View>
             <View style={styles.item}>
               <Text style={[Styles.TextNormal, {color: Styles.Color.gray2}]}>
-                Settings
-              </Text>
-            </View>
-            <View style={styles.item}>
-              <Text style={[Styles.TextNormal, {color: Styles.Color.gray2}]}>
                 Help
               </Text>
             </View>
@@ -76,6 +71,18 @@ export default class index extends Component {
             </View>
           </View>
 
+          <View style={styles.groupItem}>
+            <View style={styles.item}>
+              <Text style={[Styles.TextNormal, {color: Styles.Color.gray2}]}>
+                Settings
+              </Text>
+            </View>
+            <View style={styles.item}>
+              <Text style={[Styles.TextNormal, {color: Styles.Color.gray2}]}>
+                Sign out
+              </Text>
+            </View>
+          </View>
         </ScrollView>
       </View>
     )
@@ -89,11 +96,12 @@ const styles = StyleSheet.create({
     borderBottomColor: '#f0f0f0',
     borderBottomWidth: 1,
     paddingVertical: 5,
-    marginBottom: 10,
+    marginBottom: 15,
   },
   groupItem: {
     backgroundColor: '#fff',
     paddingHorizontal: 20,
+    marginBottom: 15,
   },
   item: {
     backgroundColor: '#fff',

@@ -86,3 +86,33 @@ export const postImage = {
   width: '100%',
   height: 200,
 }
+
+export const formControl = {
+  borderRadius: 5,
+  borderWidth: 1,
+  borderColor: '#dbdfe2',
+  padding: 20,
+  marginVertical: 5,
+  width: '75%',
+  backgroundColor: '#fff',
+}
+export const inputControl = {
+  fontSize: 18,
+  color: '#4d606f',
+  fontWeight: '200',
+}
+export const submitFormControl = {
+  marginVertical: 10,
+  width: '75%',
+}
+export const submitControl = {
+  borderRadius: 5,
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: 20,
+}
+export const textSubmit = {
+  fontSize: 18,
+  color: '#fff',
+  fontWeight: '500',
+}

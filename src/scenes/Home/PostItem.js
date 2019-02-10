@@ -54,10 +54,16 @@ export default class Post extends Component {
 
         <View style={[Styles.HorizontalView, styles.postBox]} >
           <View style={styles.postLeft} >
-            <Text style={[Styles.TextLarge, styles.textTitle]} >
+            <Text 
+              numberOfLines={2}
+              style={[Styles.TextLarge, styles.textTitle]} 
+            >
               {this.props.data.title}
             </Text>
-            <Text style={[Styles.TextNormal, styles.textContent]} >
+            <Text 
+              numberOfLines={2}
+              style={[Styles.TextNormal, styles.textContent]}
+            >
               {this.props.data.content}
             </Text>
           </View>
@@ -84,7 +90,8 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   postLeft: {
-    flex: 90
+    flex: 90,
+    paddingHorizontal: 5,
   },
   postRight: {
     flex: 10,
