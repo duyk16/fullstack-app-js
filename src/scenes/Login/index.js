@@ -47,7 +47,9 @@ export default class Login extends Component {
           enabled
         >
 
-        <Loader isLoading={this.state.isLoading} />
+        <Loader 
+          transparent={true}
+          isLoading={this.state.isLoading} />
 
         <ScrollView style={{width: '100%', height: '100%', paddingBottom: 30}}
           centerContent={true}

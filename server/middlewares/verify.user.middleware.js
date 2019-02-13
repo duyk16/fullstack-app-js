@@ -17,7 +17,7 @@ exports.isPasswordAndUserMatch = async (req, res, next) => {
     let user = await UserModel.findOne({
       email: req.body.email
     })
-    if (!user) return res.status(404).send({
+    if (!user) return res.status(400).send({
       error: 'Email not found'
     })
     let passwordDB = user.password.split('$')

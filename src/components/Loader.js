@@ -10,7 +10,7 @@ export default class Loader extends Component {
     return (
       <Modal
         visible={this.props.isLoading}
-        transparent={true}
+        transparent={this.props.transparent}
         animationType='none'
         onRequestClose={() => {Alert.alert('Modal has been closed.');}}
       >

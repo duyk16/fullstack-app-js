@@ -47,7 +47,7 @@ export default class RegisterForm extends Component {
       password: this.state.user.password,
       firstName: this.state.user.firstName,
       lastName: this.state.user.lastName
-    }).then(result => {
+    }).then(data => {
       this.setState({
         ...this.state,
         alert: {
@@ -280,11 +280,13 @@ export default class RegisterForm extends Component {
         </TouchableOpacity>
         <View style={{flexDirection: 'row', marginBottom: 30}}>
           <Text style={{fontSize: 16, color: '#607688'}}>
-            Have account?
+            Have account? 
           </Text>
-          <TouchableOpacity activeOpacity={0.7} onPress={this.props.changeForm} >
-            <Text style={{fontSize: 16, color: '#dd4e4b'}}> Sign in </Text>
-          </TouchableOpacity>
+          <Text 
+            style={{fontSize: 16, color: '#dd4e4b'}}
+            onPress={this.props.changeForm}
+          > Sign in
+          </Text>
         </View>
       </View>
     )
