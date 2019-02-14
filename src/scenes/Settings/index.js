@@ -30,10 +30,13 @@ class index extends Component {
 
   logOut = async () => {
     this.props.request()
-    AsyncStorage.removeItem('USER')
+    await AsyncStorage.removeItem('USER')
       .then(res => {
-
         this.props.logOut()
+        this.props.request()
+      })
+      .catch(err => {
+        console.log('Error', err);
         this.props.request()
       })
   }

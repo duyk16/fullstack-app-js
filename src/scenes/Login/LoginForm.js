@@ -34,53 +34,54 @@ class LoginForm extends Component {
     // Start loading
     this.props.request()
     if (!this.validateFields()) return
-    api.login({
-      email: this.state.user.email,
-      password: this.state.user.password
-    }).then(res => {
-      if (res.status == 201) {
-        let user = {
-          userId: res.data.userId,
-          accessToken: res.data.accessToken
-        }
-        AsyncStorage.setItem('USER', JSON.stringify(user))
-          .then(res => {
-            // Storage success
-            console.log(res)
-            this.props.loginSuccess()
-            this.props.request()
+    const { email, password } = this.state.user
+    api.login({email, password})
+      .then(res => {
+        if (res.status == 201) {
+          let user = {
+            userId: res.data.userId,
+            accessToken: res.data.accessToken
+          }
+          AsyncStorage.setItem('USER', JSON.stringify(user))
+            .then(res => {
+              // Storage success
+              this.props.loginSuccess()
+              this.props.request()
+            })
+            .catch(err => console.log(err))
+        } else {
+          this.setState({
+            ...this.state,
+            alert: {
+              ...this.state.alert,
+              error: true
+            },
+            error: 'Try again'
           })
-          .catch(err => console.log(err))
-      } else {
+          // End loading
+          this.props.request()
+        }
+      })
+      .catch(err => {
+        if (err.response) {
+          if (err.response.status == 400) {
+            this.setState({
+              ...this.state,
+              error: err.response.data.error
+            })
+          }
+        }
         this.setState({
           ...this.state,
           alert: {
-            ...this.state.alert,
             error: true
-          },
-          error: 'Try again'
+          }
         })
+        
         // End loading
         this.props.request()
-      }
-    }).catch(err => {
-      if (err.response.status == 400) {
-        this.setState({
-          ...this.state,
-          error: err.response.data.error
-        })
-      }
-      this.setState({
-        ...this.state,
-        alert: {
-          ...this.state.alert,
-          error: true
-        }
       })
-      // End loading
-      this.props.request()
-    })
-  }
+    }
 
   errorClose() {
     this.setState({

@@ -37,6 +37,5 @@ export function loginFailure(text) {
 export function logOut() {
   return {
     type: LOGOUT,
-    text
   }
 }

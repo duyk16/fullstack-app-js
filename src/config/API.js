@@ -6,11 +6,11 @@ const instance = axios.create({
 });
 
 exports.createUser = (user) => {
-  return instance.post('/users', {...user})
+  return instance.post('/users', user)
 }
 
 exports.login = (user) => {
-  return instance.post('/users/login', {...user})
+  return instance.post('/users/login', user)
 }
 
 exports.getUserById = (userId, token) => {

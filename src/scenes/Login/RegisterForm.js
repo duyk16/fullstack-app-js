@@ -59,11 +59,15 @@ class RegisterForm extends Component {
       // End loading
       this.props.request()
     }).catch(err => {
-      if (err.response.status == 400) {
-        this.setState({
-          ...this.state,
-          error: err.response.data.error
-        })
+      console.log('error');
+      
+      if (err.response) {
+        if (err.response.status == 400) {
+          this.setState({
+            ...this.state,
+            error: err.response.data.error
+          })
+        }
       }
       this.setState({
         ...this.state,
@@ -72,6 +76,7 @@ class RegisterForm extends Component {
           error: true
         }
       })
+      console.log('error');
       // End loading
       this.props.request()
     })
