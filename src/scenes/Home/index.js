@@ -2,44 +2,17 @@ import React, { Component } from 'react'
 import { Text, View, FlatList, TouchableOpacity } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import { connect } from 'react-redux'
+
+import * as api from '../../config/API'
+import * as action from '../../redux/actions/home.action'
 
 import PostItem from './PostItem'
+import Loader from '../../components/Loader'
 
-export default class index extends Component {
+class index extends Component {
   constructor(props, context) {
     super(props, context)
-    this.state = {
-      data: [
-        {
-          title: '10 Things You Need To Know About Animal.',
-          content: 'It is used every day in all types of businesses, what is your problem ...'
-        },
-        {
-          title: '10 Things You Need To Know About Animal.',
-          content: 'It is used every day in all types of businesses...'
-        },
-        {
-          title: '10 Things You Need To Know About Animal.',
-          content: 'It is used every day in all types of businesses...'
-        },
-        {
-          title: '10 Things You Need To Know About Animal.',
-          content: 'It is used every day in all types of businesses...'
-        },
-        {
-          title: '10 Things You Need To Know About Animal.',
-          content: 'It is used every day in all types of businesses...'
-        },
-        {
-          title: '10 Things You Need To Know About Animal.',
-          content: 'It is used every day in all types of businesses...'
-        },
-        {
-          title: '10 Things You Need To Know About Animal.',
-          content: 'It is used every day in all types of businesses...'
-        },
-      ],
-    }
 
     this.getDetailPost = this.getDetailPost.bind(this)
     this._getSettings = this._getSettings.bind(this)
@@ -62,7 +35,23 @@ export default class index extends Component {
       </TouchableOpacity>
     ),
   })
+  componentDidMount = () => {
+    this.loadData()
+  }
 
+  loadData = async () => {
+    this.props.request()
+    try {
+      let result = await api.getPost()
+      let data = result.data.data
+      this.props.getDataSuccess(data)
+    } catch (error) {
+      console.log(error);
+      this.props.getDataFailure()
+    }
+    this.props.request()
+  }
+  
   getDetailPost(key) {
     this.props.navigation.navigate('DetailPost', {
       data: this.state.data[key]
@@ -80,8 +69,13 @@ export default class index extends Component {
   render() {
     return (
       <View style={{flex: 1, backgroundColor: '#dedede'}} >
+        {this.props.isLoading && <Loader 
+            isLoading={this.props.isLoading} 
+            transparent={false}
+        />}
+
         <FlatList
-          data={this.state.data}
+          data={this.props.data}
           keyExtractor={(item, index) => index.toString()}
           renderItem={ ({item, index}) => (
             <PostItem 
@@ -95,3 +89,24 @@ export default class index extends Component {
     )
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    isLoading: state.homeReducer.isLoading,
+    data: state.homeReducer.data
+  }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    request: () => {
+      dispatch(action.request())
+    },
+    getDataSuccess: (data) => {
+      dispatch(action.getDataSuccess(data))
+    },
+    getDataFailure: () => {
+      dispatch(action.getDataFailure())
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(index)
