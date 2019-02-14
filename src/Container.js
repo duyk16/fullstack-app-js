@@ -22,6 +22,7 @@ class Container extends Component {
     if (userData) {
       api.getUserById(userData.userId, userData.accessToken)
         .then(res => {
+          res.data.data.accessToken = userData.accessToken
           this.props.authSuccess(res.data.data)
           this.props.request()
         })

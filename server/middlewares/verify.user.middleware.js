@@ -36,7 +36,7 @@ exports.isPasswordAndUserMatch = async (req, res, next) => {
       error: 'Password does not match'
     })
   } catch (e) {
-    return res.status(403).send({
+    return res.status(400).send({
       error: 'Error does not define'
     })
   }

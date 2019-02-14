@@ -56,8 +56,8 @@ export const avatarWrap = {
   shadowRadius: 8,
 }
 export const avatarImage = {
-  width: 50,
-  height: 50,
+  width: 45,
+  height: 45,
   borderRadius: 25,
   borderColor: '#eee',
   borderWidth: 1,

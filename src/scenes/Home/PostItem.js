@@ -9,35 +9,43 @@ import * as Styles from '../../config/Styles'
 export default class Post extends Component {
   constructor(props, context) {
     super(props, context)
+    
     this.state = {
-      post: {
-        title: '10 Things You Need To Know About Animal.',
-        content: 'It is used every day in all types of businesses...'
-      }
+      userAvartarDefault: false,
+      imageDefault: false
     }
   }
+  
   static navigationOptions = {
     
   }
-
+  
   render() {
+    let { userName, userEmail } = this.props.data.owner
+    
+    const defaultAvatar = <Image style={Styles.avatarImage} source={require('../../res/images/logo_color.png')} />
+    const defaultImage = <Image style={Styles.postImage} source={require('../../res/images/logo_color.png')} />
     return (
       <View style={{backgroundColor: '#fff', marginBottom: 10}}>
         <View style={Styles.HorizontalView} >
           <View style={Styles.userAvartar} >
             <View style={Styles.avatarWrap} >
+            {!this.state.userAvartarDefault ?
               <Image 
                 style={Styles.avatarImage}
-                source={{uri: 'http://localhost:3000/uploads/avatar/5c571a02ae684c55683d5347-1549455728807.jpg'}}
-              />
+                source={{uri: `http://${this.props.data.owner.userAvatar}`}}
+                onError={() => {this.setState({...this.state, userAvartarDefault: true})}}
+              /> :
+              defaultAvatar
+            }
             </View>
           </View>
           <View style={Styles.userInfo} >
             <View>
-              <Text style={Styles.userNameText} >Duy Nguyen</Text>
+              <Text style={Styles.userNameText} >{userName}</Text>
             </View>
             <View>
-              <Text style={Styles.userInfoText} >admin4@gmail.com</Text>
+              <Text style={Styles.userInfoText} >{userEmail}</Text>
             </View>
           </View>
           <View style={Styles.postInfo} >
@@ -46,10 +54,14 @@ export default class Post extends Component {
         </View>
 
         <View>
-          <Image
-            style={Styles.postImage}
-            source={{uri: 'http://localhost:3000/uploads/post/5c5afc87b3376247f16ed6ea-1549466759948.jpeg'}}
-          />
+          {!this.state.imageDefault ?
+            <Image
+              style={Styles.postImage}
+              source={{uri: `http://${this.props.data.image}`}}
+              onError={() => {this.setState({...this.state, imageDefault: true})}}
+            /> :
+            defaultImage
+          }
         </View>
 
         <View style={[Styles.HorizontalView, styles.postBox]} >

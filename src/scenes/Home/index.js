@@ -35,16 +35,34 @@ class index extends Component {
       </TouchableOpacity>
     ),
   })
-  componentDidMount = () => {
-    this.loadData()
-  }
-
+  
   loadData = async () => {
     this.props.request()
     try {
+      // get post data
       let result = await api.getPost()
       let data = result.data.data
-      this.props.getDataSuccess(data)
+      
+      // get owner post data
+      for (let i in data) {
+        api.getUserById(data[i].owner, this.props.accessToken)
+          .then((result) => {
+            let owner = {
+              userId: data[i].owner,
+              userAvatar: result.data.data.avatar,
+              userEmail: result.data.data.email,
+              userName: result.data.data.firstName + ' ' + result.data.data.lastName
+            }
+            data[i].owner = owner
+            this.props.getDataSuccess(data)
+            return
+          })
+          .catch(err => {
+            console.log(err)
+            this.props.getDataSuccess(data)
+            return
+          })
+      }
     } catch (error) {
       console.log(error);
       this.props.getDataFailure()
@@ -54,15 +72,16 @@ class index extends Component {
   
   getDetailPost(key) {
     this.props.navigation.navigate('DetailPost', {
-      data: this.state.data[key]
+      data: this.props.data[key]
     })
   }
-
+  
   _getSettings() {
     this.props.navigation.navigate('Settings')
   }
   
   componentDidMount() {
+    this.loadData()
     this.props.navigation.setParams({getSettings: this._getSettings})
   }
   
@@ -93,7 +112,9 @@ class index extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     isLoading: state.homeReducer.isLoading,
-    data: state.homeReducer.data
+    data: state.homeReducer.data,
+    userId: state.userReducer.userData.userId,
+    accessToken: state.userReducer.userData.accessToken
   }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {

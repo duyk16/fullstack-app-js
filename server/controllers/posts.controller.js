@@ -28,6 +28,7 @@ exports.getAllPosts = (req, res) => {
   }
 
   PostModel.find()
+    .sort({createdAt: -1})
     .limit(limit)
     .skip(limit * page)
     .select('-__v')
