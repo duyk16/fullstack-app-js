@@ -8,18 +8,21 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actions.AUTH_REQUEST:
+    case actions.REQUEST:
       return {
         ...state,
         isLoading: !state.isLoading
       }
-    case action.AUTH_SUCCESS:
+    case actions.AUTH_SUCCESS:
+    case actions.LOGIN_SUCCESS:
       return {
         ...state,
         userData: action.userData,
         isLoggedIn: true
       }
-    case action.AUTH_FAILURE:
+    case actions.AUTH_FAILURE:
+    case actions.LOGIN_FAILURE:
+    case actions.LOGOUT:
       return {
         ...state,
         isLoggedIn: false

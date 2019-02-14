@@ -4,11 +4,13 @@ import {
 } from 'react-native'
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 import LinearGradient from 'react-native-linear-gradient'
+import { connect } from 'react-redux'
 
 import * as Styles from '../../config/Styles'
 import api from '../../config/API'
+import * as userAction from '../../redux/actions/user.action'
 
-export default class RegisterForm extends Component {
+class RegisterForm extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -38,8 +40,7 @@ export default class RegisterForm extends Component {
   
   onSubmit() {
     // Start loading
-    this.props.loading()
-    
+    this.props.request()
     if (!this.validateFields()) return
 
     api.createUser({
@@ -56,7 +57,7 @@ export default class RegisterForm extends Component {
         }
       })
       // End loading
-      this.props.loading()
+      this.props.request()
     }).catch(err => {
       if (err.response.status == 400) {
         this.setState({
@@ -72,7 +73,7 @@ export default class RegisterForm extends Component {
         }
       })
       // End loading
-      this.props.loading()
+      this.props.request()
     })
   }
 
@@ -292,3 +293,17 @@ export default class RegisterForm extends Component {
     )
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    isLoading: state.userReducer.isLoading
+  }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    request: () => {
+      dispatch(userAction.request())
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm)

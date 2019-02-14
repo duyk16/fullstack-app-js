@@ -15,7 +15,7 @@ class Container extends Component {
   }
   
   isLoggedIn = async () => {
-    this.props.authRequest()
+    this.props.request()
     // Read data from Local Storage
     let userData = await AsyncStorage.getItem('USER');
     userData = JSON.parse(userData)
@@ -23,15 +23,17 @@ class Container extends Component {
       api.getUserById(userData.userId, userData.accessToken)
         .then(res => {
           this.props.authSuccess(res.data.data)
-          this.props.authRequest()
-          return
+          this.props.request()
         })
         .catch(err => {
           this.props.authFailure()
-          this.props.authRequest()
-          return
+          this.props.request()
         })
+    } else {
+      this.props.authFailure()
+      this.props.request()
     }
+
   }
   
   render() {
@@ -65,8 +67,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    authRequest: () => {
-      dispatch(userAction.authRequest())
+    request: () => {
+      dispatch(userAction.request())
     },
     authSuccess: (userData) => {
       dispatch(userAction.authSuccess(userData))

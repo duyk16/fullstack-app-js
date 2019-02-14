@@ -4,11 +4,13 @@ import {
 } from 'react-native'
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 import LinearGradient from 'react-native-linear-gradient'
+import { connect } from 'react-redux'
 
 import * as Styles from '../../config/Styles'
 import api from '../../config/API'
+import * as userAction from '../../redux/actions/user.action'
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -30,13 +32,12 @@ export default class LoginForm extends Component {
 
   onSubmit() {
     // Start loading
-    this.props.loading()
+    this.props.request()
     if (!this.validateFields()) return
     api.login({
       email: this.state.user.email,
       password: this.state.user.password
     }).then(res => {
-      console.log(res);
       if (res.status == 201) {
         let user = {
           userId: res.data.userId,
@@ -44,8 +45,10 @@ export default class LoginForm extends Component {
         }
         AsyncStorage.setItem('USER', JSON.stringify(user))
           .then(res => {
-            // End loading
-            this.props.loading()
+            // Storage success
+            console.log(res)
+            this.props.loginSuccess()
+            this.props.request()
           })
           .catch(err => console.log(err))
       } else {
@@ -57,8 +60,8 @@ export default class LoginForm extends Component {
           },
           error: 'Try again'
         })
-      // End loading
-      this.props.loading()
+        // End loading
+        this.props.request()
       }
     }).catch(err => {
       if (err.response.status == 400) {
@@ -75,7 +78,7 @@ export default class LoginForm extends Component {
         }
       })
       // End loading
-      this.props.loading()
+      this.props.request()
     })
   }
 
@@ -194,3 +197,24 @@ export default class LoginForm extends Component {
     )
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    isLoggedIn: state.userReducer.isLoggedIn,
+    isLoading: state.userReducer.isLoading
+  }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    request: () => {
+      dispatch(userAction.request())
+    },
+    loginSuccess: (userData) => {
+      dispatch(userAction.loginSuccess(userData))
+    },
+    loginFailure: () => {
+      dispatch(userAction.loginSuccess())
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)

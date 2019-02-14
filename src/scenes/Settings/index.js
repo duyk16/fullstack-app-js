@@ -1,12 +1,20 @@
 import React, { Component } from 'react'
 import { 
-  Text, View, TouchableOpacity, StyleSheet, Image, ScrollView
+  Text, View, TouchableOpacity, StyleSheet, Image, ScrollView, AsyncStorage
 } from 'react-native'
+import { connect } from 'react-redux'
+
 import * as Styles from '../../config/Styles'
-
 import Entypo from 'react-native-vector-icons/Entypo'
+import * as userActions from '../../redux/actions/user.action'
 
-export default class index extends Component {
+class index extends Component {
+  constructor(props, context) {
+    super(props, context)
+
+    this.logOut = this.logOut.bind(this)
+  }
+  
   static navigationOptions = ({navigation}) => ({
     title: 'You',
     headerLeft: (
@@ -19,6 +27,16 @@ export default class index extends Component {
       </TouchableOpacity>
     )
   })
+
+  logOut = async () => {
+    this.props.request()
+    AsyncStorage.removeItem('USER')
+      .then(res => {
+
+        this.props.logOut()
+        this.props.request()
+      })
+  }
 
   render() {
     return (
@@ -78,7 +96,10 @@ export default class index extends Component {
               </Text>
             </View>
             <View style={styles.item}>
-              <Text style={[Styles.TextNormal, {color: Styles.Color.gray2}]}>
+              <Text 
+                style={[Styles.TextNormal, {color: Styles.Color.gray2}]}
+                onPress={this.logOut}
+              >
                 Sign out
               </Text>
             </View>
@@ -110,3 +131,21 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   }
 })
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    isLoggedIn: state.userReducer.isLoggedIn,
+    isLoading: state.userReducer.isLoading
+  }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    request: () => {
+      dispatch(userActions.request())
+    },
+    logOut: () => {
+      dispatch(userActions.logOut())
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(index)
