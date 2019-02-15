@@ -14,14 +14,46 @@ export default class Post extends Component {
       userAvartarDefault: false,
       imageDefault: false
     }
+
+    this.convertTime = this.convertTime.bind(this)
   }
   
   static navigationOptions = {
     
   }
   
+  convertTime(time) {
+    console.log(time);
+    
+    var seconds = Math.floor((new Date() - new Date(time)) / 1000);
+    var interval = Math.floor(seconds / 31536000);
+    if (interval > 1) {
+      return interval + " years ago";
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+      return interval + " months ago";
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+      return interval + " days ago";
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+      return interval + " hours ago";
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+      return interval + " minutes ago";
+    }
+    return Math.floor(seconds) + " seconds ago";
+  }
+
   render() {
     let { userName, userEmail } = this.props.data.owner
+    let createdAt = this.convertTime(this.props.data.createdAt)
+
+    console.log(createdAt);
     
     const defaultAvatar = <Image style={Styles.avatarImage} source={require('../../res/images/logo_color.png')} />
     const defaultImage = <Image style={Styles.postImage} source={require('../../res/images/logo_color.png')} />
@@ -49,7 +81,7 @@ export default class Post extends Component {
             </View>
           </View>
           <View style={Styles.postInfo} >
-            <Text style={Styles.TextNormal} >3 minutes ago</Text>
+            <Text style={[Styles.TextNormal, {textAlign: 'right', paddingHorizontal: 10}]} >{createdAt}</Text>
           </View>
         </View>
 
