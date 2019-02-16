@@ -23,8 +23,6 @@ export default class Post extends Component {
   }
   
   convertTime(time) {
-    console.log(time);
-    
     var seconds = Math.floor((new Date() - new Date(time)) / 1000);
     var interval = Math.floor(seconds / 31536000);
     if (interval > 1) {
@@ -52,8 +50,6 @@ export default class Post extends Component {
   render() {
     let { userName, userEmail } = this.props.data.owner
     let createdAt = this.convertTime(this.props.data.createdAt)
-
-    console.log(createdAt);
     
     const defaultAvatar = <Image style={Styles.avatarImage} source={require('../../res/images/logo_color.png')} />
     const defaultImage = <Image style={Styles.postImage} source={require('../../res/images/logo_color.png')} />

@@ -45,7 +45,9 @@ class LoginForm extends Component {
           AsyncStorage.setItem('USER', JSON.stringify(user))
             .then(res => {
               // Storage success
-              this.props.loginSuccess()
+              console.log(user);
+              
+              this.props.loginSuccess(user)
               this.props.request()
             })
             .catch(err => console.log(err))

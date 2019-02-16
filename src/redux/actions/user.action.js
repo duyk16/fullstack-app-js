@@ -22,10 +22,10 @@ export function authFailure(text) {
     text
   }
 }
-export function loginSuccess(text) {
+export function loginSuccess(userData) {
   return {
     type: LOGIN_SUCCESS,
-    text
+    userData
   }
 }
 export function loginFailure(text) {

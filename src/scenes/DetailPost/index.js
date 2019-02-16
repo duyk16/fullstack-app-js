@@ -19,8 +19,36 @@ export default class index extends Component {
       </TouchableOpacity>
     )
   })
+
+  convertTime(time) {
+    var seconds = Math.floor((new Date() - new Date(time)) / 1000);
+    var interval = Math.floor(seconds / 31536000);
+    if (interval > 1) {
+      return interval + " years ago";
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+      return interval + " months ago";
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+      return interval + " days ago";
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+      return interval + " hours ago";
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+      return interval + " minutes ago";
+    }
+    return Math.floor(seconds) + " seconds ago";
+  }
+
   render() {
     const data = this.props.navigation.getParam('data')
+    const owner = data.owner
+    
     return (
       <View style={{paddingHorizontal: 10}}>
         <ScrollView style={{height: '100%'}}>
@@ -29,16 +57,16 @@ export default class index extends Component {
               <View style={Styles.avatarWrap} >
                 <Image 
                   style={Styles.avatarImage}
-                  source={{uri: 'http://localhost:3000/uploads/avatar/5c571a02ae684c55683d5347-1549455728807.jpg'}}
+                  source={{uri: 'http://' + owner.userAvatar}}
                 />
               </View>
             </View>
             <View style={Styles.userInfo} >
               <View>
-                <Text style={Styles.userNameText} >Duy Nguyen</Text>
+                <Text style={Styles.userNameText} >{owner.userName}</Text>
               </View>
               <View>
-                <Text style={Styles.userInfoText} >admin4@gmail.com</Text>
+                <Text style={Styles.userInfoText} >{owner.userEmail}</Text>
               </View>
             </View>
           </View>
@@ -47,13 +75,13 @@ export default class index extends Component {
             <Text style={[Styles.TextDisplay1, styles.titleText]} >
               {data.title}
             </Text>
-            <Text style={[Styles.TextSmall, styles.postInfoText]} >31 Jun 2019</Text>
+            <Text style={[Styles.TextSmall, styles.postInfoText]} >{() => this.convertTime(data.updatedAt)}</Text>
           </View>
 
           <View>
             <Image
               style={Styles.postImage}
-              source={{uri: 'http://localhost:3000/uploads/post/5c5afc87b3376247f16ed6ea-1549466759948.jpeg'}}
+              source={{uri: 'http://' + data.image}}
             />
           </View>
 

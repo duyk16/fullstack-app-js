@@ -56,7 +56,7 @@ class index extends Component {
             </View>
             <View style={Styles.userInfo} >
               <View>
-                <Text style={Styles.userNameText} >Duy Nguyen</Text>
+                <Text style={Styles.userNameText} >{this.props.userData.firstName + ' ' + this.props.userData.lastName}</Text>
               </View>
               <View style={{marginVertical: 5}}>
                 <Text 
@@ -138,7 +138,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ownProps) => {
   return {
     isLoggedIn: state.userReducer.isLoggedIn,
-    isLoading: state.userReducer.isLoading
+    isLoading: state.userReducer.isLoading,
+    userData: state.userReducer.userData
   }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
