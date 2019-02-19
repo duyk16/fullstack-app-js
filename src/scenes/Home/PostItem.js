@@ -15,7 +15,8 @@ export default class Post extends Component {
       imageDefault: false
     }
 
-    this.convertTime = this.convertTime.bind(this)
+    this.convertTime      = this.convertTime.bind(this)
+    this.handleImageError = this.handleImageError.bind(this)
   }
   
   static navigationOptions = {
@@ -47,9 +48,26 @@ export default class Post extends Component {
     return Math.floor(seconds) + " seconds ago";
   }
 
+  handleImageError() {
+    this.setState({
+      ...this.state,
+      userAvartarDefault: true,
+    })
+  }
+
+  checkAvatar(userAvatar) {
+    if (userAvatar) {
+      this.setState({
+        ...this.state,
+        userAvartarDefault: false,
+      })
+    }
+  }
+
   render() {
-    let { userName, userEmail } = this.props.data.owner
+    let { userName, userEmail, userAvatar } = this.props.data.owner
     let createdAt = this.convertTime(this.props.data.createdAt)
+    console.log(this.state.userAvartarDefault);
     
     const defaultAvatar = <Image style={Styles.avatarImage} source={require('../../res/images/logo_color.png')} />
     const defaultImage = <Image style={Styles.postImage} source={require('../../res/images/logo_color.png')} />
@@ -58,11 +76,12 @@ export default class Post extends Component {
         <View style={Styles.HorizontalView} >
           <View style={Styles.userAvartar} >
             <View style={Styles.avatarWrap} >
-            {!this.state.userAvartarDefault ?
+            {!this.state.userAvartarDefault && userAvatar ?
               <Image 
-                style={Styles.avatarImage}
-                source={{uri: `http://${this.props.data.owner.userAvatar}`}}
-                onError={() => {this.setState({...this.state, userAvartarDefault: true})}}
+                style={Styles.avatarImage}  
+                source={{uri: 'http://' + userAvatar}}
+                onError={this.handleImageError}
+                progressiveRenderingEnabled={true}
               /> :
               defaultAvatar
             }

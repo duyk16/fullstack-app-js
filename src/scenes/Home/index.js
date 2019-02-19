@@ -44,7 +44,9 @@ class index extends Component {
       let data = result.data.data
       
       // get owner post data
-      for (let i in data) {
+      let length = data.length
+      let count = 0
+      for (let i = 0; i < length; i++) {
         api.getUserById(data[i].owner, this.props.accessToken)
           .then((result) => {
             let owner = {
@@ -55,11 +57,19 @@ class index extends Component {
             }
             data[i].owner = owner
             this.props.getDataSuccess(data)
+            count++
+            if (count == length) {
+              this.props.request()
+            }
             return
           })
           .catch(err => {
             console.log(err)
-            this.props.getDataSuccess(data)
+            this.props.getDataFailure()
+            count++
+            if (count == length) {
+              this.props.request()
+            }
             return
           })
       }
@@ -67,7 +77,6 @@ class index extends Component {
       console.log(error);
       this.props.getDataFailure()
     }
-    this.props.request()
   }
   
   getDetailPost(key) {
