@@ -19,3 +19,4 @@ exports.getUserById = (userId, token) => {
 exports.getPost = () => {
   return instance.get('/posts')
 }
+

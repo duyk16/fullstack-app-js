@@ -14,14 +14,19 @@ class index extends Component {
   constructor(props, context) {
     super(props, context)
 
-    this.getDetailPost = this.getDetailPost.bind(this)
-    this._getSettings = this._getSettings.bind(this)
+    this.getDetailPost  = this.getDetailPost.bind(this)
+    this._getSettings   = this._getSettings.bind(this)
+    this._getNewPost    = this._getNewPost.bind(this)
   }
   
   static navigationOptions = ({ navigation }) => ({
     title: 'Trending',
     headerLeft: (
-      <TouchableOpacity style={{paddingHorizontal: 20}} >
+      <TouchableOpacity 
+        style={{paddingHorizontal: 20}}
+        activeOpacity={0.7}
+        onPress={navigation.getParam('getNewPost')}
+      >
         <AntDesign name='plus' size={30} color='#fff' />
       </TouchableOpacity>
     ),
@@ -88,10 +93,14 @@ class index extends Component {
   _getSettings() {
     this.props.navigation.navigate('Settings')
   }
-  
+  _getNewPost() {
+    this.props.navigation.navigate('NewPost')
+  }
+
   componentDidMount() {
     this.loadData()
     this.props.navigation.setParams({getSettings: this._getSettings})
+    this.props.navigation.setParams({getNewPost: this._getNewPost})
   }
   
   render() {

@@ -75,6 +75,15 @@ class index extends Component {
                 Become a member
               </Text>
             </View>
+            <View style={styles.item} >
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('UploadAvatar')}
+              >
+                <Text style={[Styles.TextNormal, {color: Styles.Color.gray2}]}>
+                  Upload avatar
+                </Text>
+              </TouchableOpacity>
+            </View>
             <View style={styles.item}>
               <Text style={[Styles.TextNormal, {color: Styles.Color.gray2}]}>
                 Help
