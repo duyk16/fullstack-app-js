@@ -20,3 +20,12 @@ exports.getPost = () => {
   return instance.get('/posts')
 }
 
+exports.uploadAvatar = (userId, formData) => {
+  // instance.defaults.headers.common['Content-Type'] = 'multipart/form-data'
+  return instance.post(`/users/${userId}/upload/avatar`, formData, {
+    headers: {
+      'Accept': 'application/json',
+      "Content-Type": 'multipart/form-data'
+    }
+  })
+}
