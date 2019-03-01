@@ -19,22 +19,14 @@ class Container extends Component {
     // Read data from Local Storage
     let userData = await AsyncStorage.getItem('USER');
     userData = JSON.parse(userData)
+
     if (userData) {
-      api.getUserById(userData.userId, userData.accessToken)
-        .then(res => {
-          res.data.data.accessToken = userData.accessToken
-          this.props.authSuccess(res.data.data)
-          this.props.request()
-        })
-        .catch(err => {
-          this.props.authFailure()
-          this.props.request()
-        })
+      this.props.authSuccess(userData);
     } else {
-      this.props.authFailure()
-      this.props.request()
+      this.props.authFailure();
     }
 
+    this.props.request()
   }
   
   render() {

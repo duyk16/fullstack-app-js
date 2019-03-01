@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 
 import * as api from '../../config/API'
 import * as action from '../../redux/actions/home.action'
+import * as userAction from '../../redux/actions/user.action'
 
 import PostItem from './PostItem'
 import Loader from '../../components/Loader'
@@ -44,6 +45,11 @@ class index extends Component {
   loadData = async () => {
     this.props.request()
     try {
+      // get user data
+      let userRes = await api.getUserById(this.props.userId, this.props.accessToken)
+      userRes.data.data.accessToken = this.props.accessToken
+      this.props.authSuccess(userRes.data.data)
+      
       // get post data
       let result = await api.getPost()
       let data = result.data.data
@@ -80,8 +86,10 @@ class index extends Component {
       }
     } catch (error) {
       console.log(error);
+      this.props.authFailure()
       this.props.getDataFailure()
     }
+    
   }
   
   getDetailPost(key) {
@@ -130,6 +138,7 @@ class index extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     isLoading: state.homeReducer.isLoading,
+    isLoggedIn: state.userReducer.isLoggedIn,
     data: state.homeReducer.data,
     userId: state.userReducer.userData.userId,
     accessToken: state.userReducer.userData.accessToken
@@ -145,6 +154,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     getDataFailure: () => {
       dispatch(action.getDataFailure())
+    },
+    authSuccess: (userData) => {
+      dispatch(userAction.authSuccess(userData))
+    },
+    authFailure: () => {
+      dispatch(userAction.authFailure())
     }
   }
 }
