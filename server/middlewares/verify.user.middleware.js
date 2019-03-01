@@ -22,7 +22,7 @@ exports.isPasswordAndUserMatch = async (req, res, next) => {
     })
     let passwordDB = user.password.split('$')
     let saltDB = passwordDB[0]
-    let hash = crypto.createHmac('sha512', saltDB).update(req.body.password).digest('base64')
+    let hash = crypto.createHmac('sha512', saltDB).update(req.body.password.toString()).digest('base64')
     if (hash == passwordDB[1]) {
       req.body = {
         id: user._id,
