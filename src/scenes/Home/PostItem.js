@@ -67,7 +67,6 @@ export default class Post extends Component {
   render() {
     let { userName, userEmail, userAvatar } = this.props.data.owner
     let createdAt = this.convertTime(this.props.data.createdAt)
-    console.log(this.state.userAvartarDefault);
     
     const defaultAvatar = <Image style={Styles.avatarImage} source={require('../../res/images/logo_color.png')} />
     const defaultImage = <Image style={Styles.postImage} source={require('../../res/images/logo_color.png')} />

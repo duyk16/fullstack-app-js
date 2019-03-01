@@ -42,16 +42,16 @@ class index extends Component {
   }
 
   render() {
+    const { avatar } = this.props.userData
+    const userAvatarImage = !avatar ? <Image style={Styles.avatarImage} source={require('../../res/images/logo_color.png')} /> :
+      <Image style={Styles.avatarImage} source={{uri: `http://${avatar}`}} />
     return (
       <View style={{flex: 1, backgroundColor: '#f6f6f6'}} >
         <ScrollView>
           <View style={styles.userInfo}>
             <View style={Styles.userAvartar} >
               <View style={Styles.avatarWrap} >
-                <Image 
-                  style={Styles.avatarImage}
-                  source={{uri: 'http://localhost:3000/uploads/avatar/5c571a02ae684c55683d5347-1549455728807.jpg'}}
-                />
+                {userAvatarImage}
               </View>
             </View>
             <View style={Styles.userInfo} >

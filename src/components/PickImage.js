@@ -9,7 +9,7 @@ const options = {
 };
 export const pickImage = (cb) => {
   ImagePicker.showImagePicker(options, (response) => {
-    console.log('Response = ', response);
+    // console.log('Response = ', response);
 
     if (response.didCancel) {
       console.log('User cancelled image picker');
@@ -19,7 +19,7 @@ export const pickImage = (cb) => {
       const source = {
         uri: response.uri
       };
-      cb(source)
+      cb(response.uri, response.fileName, response.type)
     }
   });
 }

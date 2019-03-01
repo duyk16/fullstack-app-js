@@ -4,6 +4,7 @@ export const AUTH_FAILURE = "AUTH_FAILURE"
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const LOGOUT = "LOGOUT"
+export const UPDATE_AVATAR = "UPDATE_AVATAR"
 
 export function request() {
   return {
@@ -37,5 +38,11 @@ export function loginFailure(text) {
 export function logOut() {
   return {
     type: LOGOUT,
+  }
+}
+export function updateAvatar(avatar) {
+  return {
+    type: UPDATE_AVATAR,
+    avatar
   }
 }

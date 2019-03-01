@@ -27,6 +27,14 @@ export default (state = initialState, action) => {
         ...state,
         isLoggedIn: false
       }
+    case actions.UPDATE_AVATAR:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          avatar: action.avatar
+        }
+      }
     default:
       return state
   }
