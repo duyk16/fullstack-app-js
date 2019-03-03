@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, Image } from 'react-native'
-import { pickImage } from '../../components/PickImage'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
 
 import Entypo from 'react-native-vector-icons/Entypo'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
+import { pickImage } from '../../components/PickImage'
 import * as Styles from '../../config/Styles'
 import * as api from '../../config/API'
 import * as userAction from '../../redux/actions/user.action'
@@ -58,16 +58,6 @@ class UploadAvatar extends Component {
       type: this.state.type,
       name: this.state.fileName,
     })
-    
-    const config = {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + this.props.accessToken,
-        'Accept': 'application/json',
-        'Content-Type': 'multipart/form-data',
-      },
-      body: formData,
-    }
 
     api.uploadAvatar(userId, formData)
       .then(res => {
@@ -84,6 +74,7 @@ class UploadAvatar extends Component {
       isPick: false
     })
   }
+
   render() {
     return (
       <View style={Styles.ContainerCenter}>

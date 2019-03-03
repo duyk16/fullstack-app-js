@@ -102,7 +102,7 @@ class index extends Component {
     this.props.navigation.navigate('Settings')
   }
   _getNewPost() {
-    this.props.navigation.navigate('NewPost')
+    this.props.navigation.navigate('CreateNewPost')
   }
 
   componentDidMount() {

@@ -5,12 +5,14 @@ import LinearGradient from 'react-native-linear-gradient'
 
 import Home from './scenes/Home'
 import DetailPost from './scenes/DetailPost'
+import CreateNewPost from './scenes/Home/CreateNewPost'
 import Settings from './scenes/Settings'
 import NewPost from './scenes/NewPost'
 import UploadAvatar from './scenes/Settings/UploadAvatar'
 
 const AppNavigator = createStackNavigator(
   {
+    CreateNewPost,
     Home,
     DetailPost,
     Settings,
