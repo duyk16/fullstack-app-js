@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-  Text, View, TouchableOpacity, StyleSheet, Image, TextInput
+  Text, View, TouchableOpacity, StyleSheet, Image, TextInput, ScrollView
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -68,6 +68,9 @@ export default class CreateNewPost extends Component {
           justifyContent: 'flex-start'
         }
       ]}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+        >
           {/* Iamge pick */}
           <TouchableOpacity
             activeOpacity={0.7}
@@ -90,30 +93,22 @@ export default class CreateNewPost extends Component {
 
           {/* Post titile */}
           <View 
-            style={[
-              Styles.formControl,
-              {
-                width: '85%',
-                marginTop: 20
-              }  
-            ]}
+            style={styles.titleView}
           >
             <TextInput 
+              style={styles.inputTitle}
+              multiline={true}
               placeholder='Type post title'
             />
           </View>
 
           {/* Post content */}
           <View 
-            style={[
-              Styles.formControl, 
-              {
-                minHeight: 200,
-                width: '85%',
-              }
-            ]}
+            style={styles.contentView}
           >
             <TextInput 
+              style={styles.inputContent}
+              multiline={true}
               placeholder='Type post content ...'
 
             />
@@ -136,11 +131,12 @@ export default class CreateNewPost extends Component {
                 style={Styles.submitControl}
               >
                 <Text style={Styles.textSubmit}>
-                  Sign up
+                  Post
                 </Text>
               </LinearGradient>
             </TouchableOpacity>
           </View>
+        </ScrollView>
       </View>
     )
   }
@@ -155,5 +151,24 @@ const styles = StyleSheet.create({
   inputController: {
     paddingHorizontal: 10,
     paddingVertical: 15,
+  },
+  titleView: {
+    padding: 15,
+    paddingTop: 25,
+    width: '95%',
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+  },
+  inputTitle: {
+    fontSize: 22,
+    fontWeight: '600',
+  },  
+  contentView: {
+    padding: 15,
+    width: '95%',
+    minHeight: 250,
+  },
+  inputContent: {
+    fontSize: 16,
   }
 })
