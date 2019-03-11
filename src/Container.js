@@ -21,6 +21,7 @@ class Container extends Component {
     userData = JSON.parse(userData)
 
     if (userData) {
+      // userData.userId = userData._id
       this.props.authSuccess(userData);
     } else {
       this.props.authFailure();

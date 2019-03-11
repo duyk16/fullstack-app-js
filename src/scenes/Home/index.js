@@ -15,9 +15,15 @@ class index extends Component {
   constructor(props, context) {
     super(props, context)
 
+    this.state = {
+      refreshing: false
+    }
+
     this.getDetailPost  = this.getDetailPost.bind(this)
     this._getSettings   = this._getSettings.bind(this)
     this._getNewPost    = this._getNewPost.bind(this)
+    this.loadData       = this.loadData.bind(this)
+    this.handleRefresh  = this.handleRefresh.bind(this)    
   }
   
   static navigationOptions = ({ navigation }) => ({
@@ -92,6 +98,64 @@ class index extends Component {
     
   }
   
+  handleRefresh() {
+    const {userId, accessToken} = this.props
+    console.log(this.props);
+    
+    this.setState({
+      ...this.state,
+      refreshing: true
+    }, async () => {
+
+      // get user data
+      let userRes = await api.getUserById(userId, accessToken)
+      userRes.data.data.accessToken = accessToken
+      this.props.authSuccess(userRes.data.data)
+      
+      // get post data
+      let result = await api.getPost()
+      let data = result.data.data
+      
+      // get owner post data
+      let length = data.length
+      let count = 0
+      for (let i = 0; i < length; i++) {
+        api.getUserById(data[i].owner, this.props.accessToken)
+        .then((result) => {
+          let owner = {
+            userId: data[i].owner,
+            userAvatar: result.data.data.avatar,
+            userEmail: result.data.data.email,
+            userName: result.data.data.firstName + ' ' + result.data.data.lastName
+          }
+          data[i].owner = owner
+          this.props.getDataSuccess(data)
+          count++
+          if (count == length) {
+            this.setState({
+              ...this.state,
+              refreshing: false
+            })
+          }
+          return
+        })
+        .catch(err => {
+          console.log(err)
+          this.props.getDataFailure()
+          count++
+          if (count == length) {
+            this.setState({
+              ...this.state,
+              refreshing: false
+            })
+          }
+          return
+        })
+      }
+    })
+
+  }
+
   getDetailPost(key) {
     this.props.navigation.navigate('DetailPost', {
       data: this.props.data[key]
@@ -129,6 +193,8 @@ class index extends Component {
               getDetailPost={this.getDetailPost} 
             />
           )}
+          refreshing={this.state.refreshing}
+          onRefresh={this.handleRefresh}
         />
       </View>
     )
@@ -140,7 +206,7 @@ const mapStateToProps = (state, ownProps) => {
     isLoading: state.homeReducer.isLoading,
     isLoggedIn: state.userReducer.isLoggedIn,
     data: state.homeReducer.data,
-    userId: state.userReducer.userData.userId,
+    userId: state.userReducer.userData.userId || state.userReducer.userData._id,
     accessToken: state.userReducer.userData.accessToken
   }
 }
