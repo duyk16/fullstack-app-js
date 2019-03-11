@@ -12,8 +12,8 @@ import UploadAvatar from './scenes/Settings/UploadAvatar'
 
 const AppNavigator = createStackNavigator(
   {
-    CreateNewPost,
     Home,
+    CreateNewPost,
     DetailPost,
     Settings,
     NewPost,

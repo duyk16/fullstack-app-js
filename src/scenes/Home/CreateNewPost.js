@@ -3,6 +3,7 @@ import {
   Text, View, TouchableOpacity, StyleSheet, Image, TextInput, ScrollView
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
+import { connect } from 'react-redux'
 
 import Entypo from 'react-native-vector-icons/Entypo'
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -12,7 +13,7 @@ import * as Styles from '../../config/Styles'
 import * as api from '../../config/API'
 import * as userAction from '../../redux/actions/user.action'
 
-export default class CreateNewPost extends Component {
+class CreateNewPost extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -26,8 +27,10 @@ export default class CreateNewPost extends Component {
       content: ''
     }
 
-    this.getImagePick = this.getImagePick.bind(this)
-    
+    this.getImagePick     = this.getImagePick.bind(this)
+    this.onTitleChange    = this.onTitleChange.bind(this)
+    this.onContentChange  = this.onContentChange.bind(this)
+    this.onSubmit         = this.onSubmit.bind(this)
   }
   
   static navigationOptions = ({navigation}) => ({
@@ -57,6 +60,45 @@ export default class CreateNewPost extends Component {
           isPick: true
         },
       })
+    })
+  }
+
+  onSubmit() {
+    if (!this.state.title
+      || !this.state.content
+      || !this.state.image.isPick
+    ) return
+
+    const userId = this.props.userId
+    const formData = new FormData()
+    formData.append('image', {
+      uri: this.state.image.uri,
+      type: this.state.image.type,
+      name: this.state.image.fileName,
+    })
+    formData.append('title', this.state.title)
+    formData.append('content', this.state.content)
+
+    api.createPost(userId, formData)
+      .then(res => {
+        alert('success')
+      })
+      .catch(e => {
+        console.log(e);
+      })
+  }
+
+  onTitleChange(text) {
+    this.setState({
+      ...this.state,
+      title: text
+    })
+  }
+
+  onContentChange(text) {
+    this.setState({
+      ...this.state,
+      content: text
     })
   }
 
@@ -98,6 +140,7 @@ export default class CreateNewPost extends Component {
             <TextInput 
               style={styles.inputTitle}
               multiline={true}
+              onChangeText={this.onTitleChange}
               placeholder='Type post title'
             />
           </View>
@@ -109,6 +152,7 @@ export default class CreateNewPost extends Component {
             <TextInput 
               style={styles.inputContent}
               multiline={true}
+              onChangeText={this.onContentChange}
               placeholder='Type post content ...'
 
             />
@@ -172,3 +216,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
   }
 })
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    userId: state.userReducer.userData._id,
+    accessToken: state.userReducer.userData.accessToken,
+    isLoading: state.homeReducer.isLoading,
+  }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    request: () => {
+      dispatch(userAction.request())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewPost)

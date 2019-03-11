@@ -25,7 +25,16 @@ exports.uploadAvatar = (userId, formData) => {
   return instance.post(`/users/${userId}/upload/avatar`, formData, {
     headers: {
       'Accept': 'application/json',
-      "Content-Type": 'multipart/form-data'
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}
+
+exports.createPost = (userId, formData) => {
+  return instance.post(`/posts/${userId}`, formData, {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'multipart/form-data'
     }
   })
 }
